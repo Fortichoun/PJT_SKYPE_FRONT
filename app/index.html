@@ -1,14 +1,47 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app="myApp">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Hello AngularJS</title>
+    <script src="./bower_components/socket.io-client/dist/socket.io.js"></script>
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./app.js"></script>
+    <script src="./controllers/hello.js"></script>
+    <script src="./controllers/rooms.js"></script>
+    <script src="./controllers/user.js"></script>
 </head>
+
 <body>
-<h1>Hello World!</h1>
-We are using node <script>document.write(process.versions.node)</script>,
-Chrome <script>document.write(process.versions.chrome)</script>,
-and Electron <script>document.write(process.versions.electron)</script>.
+
+<div ng-controller="User">
+    <h1>User : {{user}}</h1>
+    <label>Your name : <input type="text" ng-model="user" /></label><br />
+
+
+
+<div ng-controller="Rooms">
+    <h1>You are in room {{room.name}}</h1>
+    <h2>Channels : </h2>
+    <div ng-repeat="room in rooms">
+        <button ng-click="selectRoom(room)">Room {{room.name}}</button>
+    </div>
+
+
+<div ng-controller="Hello">
+
+    <div ng-repeat="message in messages">
+        <p>{{message.user}} : {{message.content}}</p>
+    </div>
+
+
+    <label>Message : <input type="text" ng-model="message" /></label><br />
+    <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+</div>
+
+</div>
+
+
+</div>
+
+
 </body>
 </html>
-
