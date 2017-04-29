@@ -1,7 +1,7 @@
 angular.module('myApp')
-    .controller('Hello', ['$scope', 'socket',
-      function ($scope, socket) {
-        $scope.sendMessage = function (message) {
+    .controller('ChatController',
+      ($scope, socket) => {
+        $scope.sendMessage = (message) => {
           socket.emit('newMessage', {
             message,
             user: $scope.user,
@@ -12,4 +12,4 @@ angular.module('myApp')
           $scope.messages.push(message);
           $scope.message = '';
         });
-      }]);
+      });

@@ -3,7 +3,10 @@
       "airbnb-base",
       "angular"
       ],
-    "plugins": [
-        "import"
-    ]
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "angular/controller-as": 0
+    }
 }

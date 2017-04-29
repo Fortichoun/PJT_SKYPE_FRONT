@@ -1,12 +1,12 @@
 angular.module('myApp')
-    .controller('Rooms', ['$scope', 'socket', '$http',
-      function ($scope, socket, $http) {
+    .controller('RoomController',
+      ($scope, socket, $http) => {
         $scope.rooms = [];
         $http.get('http://localhost:3000/quotes')
                 .then((response) => {
                   $scope.rooms = response.data;
                 });
-        $scope.selectRoom = function (room) {
+        $scope.selectRoom = (room) => {
           $scope.room = room;
           socket.emit('switchRoom', {
             newRoom: room,
@@ -17,4 +17,4 @@ angular.module('myApp')
                       $scope.messages = response.data;
                     });
         };
-      }]);
+      });
