@@ -13,8 +13,19 @@
 <body>
 
 <div ng-controller="UserController">
-    <h1>User : {{user}}</h1>
-    <label>Your name : <input type="text" ng-model="user" /></label><br />
+    <form name="loginForm" ng-submit="login(credentials)" novalidate>
+
+        <label for="email">Email :</label>
+        <input type="text" id="email"
+               ng-model="credentials.email">
+
+        <label for="password">Password :</label>
+        <input type="password" id="password"
+               ng-model="credentials.password">
+
+        <button type="submit">Login</button>
+
+    </form>
 
 
 
