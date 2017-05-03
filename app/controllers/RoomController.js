@@ -8,10 +8,10 @@ angular.module('myApp')
                 });
         $scope.selectRoom = (room) => {
           $scope.room = room;
-          socket.emit('switchRoom', {
-            newRoom: room,
-            username: $scope.username,
-          });
+          // socket.emit('switchRoom', {
+          //   newRoom: room,
+          //   username: $scope.username,
+          // });
           $http.get(`http://localhost:3000/api/quotes/messages?room=${room.name}`)
                     .then((response) => {
                       $scope.messages = response.data;
