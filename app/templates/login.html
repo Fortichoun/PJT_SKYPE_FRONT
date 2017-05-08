@@ -1,19 +1,92 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form" ng-submit="vm.login()" role="form">
-        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="form-control" ng-model="vm.username" required />
-            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="vm.password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-        </div>
-        <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Login</button>
-            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a href="#!/register" class="btn btn-link">Register</a>
-        </div>
-    </form>
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <title>Qwirk Login</title>
+</head>
+
+<body>
+
+<form name="loginForm" ng-submit="login(loginForm)" novalidate>
+
+    <input type="email" required placeholder="Email" name="email"
+           ng-model="credentials.email">
+    <span style="color:red" ng-show="loginForm.$submitted && loginForm.email.$invalid ">
+         The email is invalid.
+    </span>
+
+    <input type="password" required placeholder="Password" name="password"
+           ng-model="credentials.password">
+    <span style="color:red" ng-show="loginForm.$submitted && loginForm.password.$invalid">
+         Password is required.
+    </span>
+
+    <button type="submit">Login</button>
+
+    <span style="color:red">
+         {{errorMessage}}
+    </span>
+
+</form>
+
+<form name="registerForm" ng-submit="register(registerForm)" novalidate>
+
+    <label>Username :</label>
+    <input type="text" required name="userName"
+           ng-model="information.userName">
+
+    <span style="color:red" ng-show="registerForm.$submitted && registerForm.userName.$invalid">
+         Username is required.
+    </span>
+
+    <label>Email :</label>
+    <input type="email" required name="email"
+           ng-model="information.email">
+
+    <span style="color:red" ng-show="registerForm.$submitted && registerForm.email.$invalid ">
+         The email is invalid.
+    </span>
+
+    <label>Password :</label>
+    <input type="password" required name="password"
+           ng-model="information.password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+    <span style="color:red" ng-show="registerForm.$submitted && registerForm.password.$invalid">
+         Password should be at least 8 characters long and should contain one number, one letter and one special character.
+    </span>
+
+    <label>Confirm password :</label>
+    <input type="password" required name="confirmPassword"
+           ng-model="information.confirmPassword" data-match="information.password">
+    <span style="color:red" data-ng-show="registerForm.confirmPassword.$error.match && registerForm.password.$valid">
+         Passwords do not match.
+    </span>
+
+    <label>Date of birth:</label>
+    <input type="text" required placeholder="MM/DD/YYYY" name="dateOfBirth"
+           ng-model="information.dateOfBirth" ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19\d{2}|20[0-1][0-7])$/">
+    <span style="color:red" ng-show="registerForm.$submitted && registerForm.dateOfBirth.$invalid ">
+         The date of birth is invalid.
+    </span>
+
+
+    <label for="RegisterPicture">Profile Picture :</label>
+    <input type="file" id="RegisterPicture"
+           ng-model="information.picture">
+
+    <label for="RegisterBio">Bio :</label>
+    <textarea id="RegisterBio"
+           ng-model="information.bio" ng-maxlength="100">
+    </textarea>
+
+    <button type="submit">Register</button>
+
+    <span style="color:red">
+         {{errorSaveMessage}}
+    </span>
+
+</form>
+
+</body>
+</html>
+
+
+

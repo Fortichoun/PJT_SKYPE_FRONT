@@ -5,7 +5,7 @@ angular.module('myApp')
           socket.emit('newMessage', {
             message,
             user: $scope.user,
-            room: $scope.room.name,
+            room: $scope.room,
           });
         };
         socket.on('messageCreated', (message) => {

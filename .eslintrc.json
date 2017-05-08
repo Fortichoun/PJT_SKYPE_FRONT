@@ -7,6 +7,7 @@
       "browser": true
     },
     "rules": {
-      "angular/controller-as": 0
+      "angular/controller-as": 0,
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }]
     }
 }

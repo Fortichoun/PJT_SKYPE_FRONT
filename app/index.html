@@ -1,58 +1,25 @@
 <!doctype html>
 <html ng-app="myApp">
 <head>
+    <base href="/">
     <title>Hello AngularJS</title>
     <script src="./bower_components/socket.io-client/dist/socket.io.js"></script>
     <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./bower_components/angular-route/angular-route.js"></script>
+    <script src="./bower_components/angular-password/angular-password.js"></script>
+    <script src="./bower_components/angular-validation-match/dist/angular-validation-match.js"></script>
     <script src="./app.js"></script>
-    <script src="controllers/ChatController.js"></script>
-    <script src="controllers/RoomController.js"></script>
-    <script src="controllers/UserController.js"></script>
+    <script src="./controllers/UserController.js"></script>
+    <script src="./controllers/ChatController.js"></script>
+    <script src="./controllers/RoomController.js"></script>
+
 </head>
 
 <body>
 
 <div ng-controller="UserController">
-    <form name="loginForm" ng-submit="login(credentials)" novalidate>
-
-        <label for="email">Email :</label>
-        <input type="text" id="email"
-               ng-model="credentials.email">
-
-        <label for="password">Password :</label>
-        <input type="password" id="password"
-               ng-model="credentials.password">
-
-        <button type="submit">Login</button>
-
-    </form>
-
-
-
-<div ng-controller="RoomController">
-    <h1>You are in room {{room.name}}</h1>
-    <h2>Channels : </h2>
-    <div ng-repeat="room in rooms">
-        <button ng-click="selectRoom(room)">Room {{room.name}}</button>
-    </div>
-
-
-<div ng-controller="ChatController">
-
-    <div ng-repeat="message in messages">
-        <p>{{message.user}} : {{message.content}}</p>
-    </div>
-
-
-    <label>Message : <input type="text" ng-model="message"/></label><br />
-    <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+    <ng-view></ng-view>
 </div>
-
-</div>
-
-
-</div>
-
 
 </body>
 </html>

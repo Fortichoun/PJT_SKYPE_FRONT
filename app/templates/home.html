@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <title>Qwirk Home</title>
+    <!--<script src="../bower_components/socket.io-client/dist/socket.io.js"></script>-->
+    <!--<script src="../bower_components/angular/angular.min.js"></script>-->
+    <!--<script src="../app.js"></script>-->
+    <!--<script src="../controllers/ChatController.js"></script>-->
+    <!--<script src="../controllers/RoomController.js"></script>-->
+    <!--<script src="../controllers/UserController.js"></script>-->
+</head>
+
+<body>
+
+<p>You are connected with : {{user.userName}}</p>
+<p>You're ID : {{user._id}}</p>
+
+<div ng-controller="RoomController">
+
+    <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
+
+        <h2>New room : </h2>
+        <label for="roomName">Room name :</label>
+        <input type="text" id="roomName"
+               ng-model="information.roomName">
+
+        <button type="submit">Let's chat!</button>
+
+    </form>
+
+    <h1>You are in room {{room.name}}</h1>
+    <h2>Channels : </h2>
+    <div ng-repeat="room in rooms">
+        <button ng-click="selectRoom(room)">Room {{room.name}}</button>
+    </div>
+
+
+<div ng-controller="ChatController">
+
+    <div ng-repeat="message in messages">
+        <p>{{message.user.userName}} : {{message.content}}</p>
+    </div>
+
+
+    <label>Message : <input type="text" ng-model="message"/></label><br />
+    <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+</div>
+
+</div>
+
+</body>
+</html>

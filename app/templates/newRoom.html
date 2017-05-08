@@ -1,0 +1,20 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+</head>
+
+<body>
+
+<form name="RoomForm" ng-submit="createRoom(information)" novalidate>
+
+    <h2>New room : </h2>
+    <label for="roomName">Room name :</label>
+    <input type="text" id="roomName"
+           ng-model="information.roomName">
+
+    <button type="submit">Let's chat!</button>
+
+</form>
+
+</body>
+</html>

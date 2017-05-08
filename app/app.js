@@ -1,5 +1,20 @@
 angular
-    .module('myApp', [])
+    .module('myApp', ['ngRoute', 'ngPassword', 'validation.match'])
+    .config(($routeProvider, $locationProvider) => {
+      $locationProvider.html5Mode(true).hashPrefix('');
+      $routeProvider
+            .when('/', {
+              templateUrl: 'templates/login.html',
+              // controller: 'controllers/ChatController'
+            })
+            .when('/home', {
+              templateUrl: 'templates/home.html',
+              // controller: 'controllers/ChatController'
+            })
+          .otherwise({
+            redirectTo: '/',
+          });
+    })
     .factory('socket', ($rootScope) => {
       const socket = io.connect('localhost:3000');
       return {
