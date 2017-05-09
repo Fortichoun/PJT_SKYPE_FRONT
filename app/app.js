@@ -1,33 +1,32 @@
 angular
     .module('myApp', ['ngRoute', 'ngPassword', 'validation.match', 'ui.router'])
     .config(($routeProvider, $locationProvider, $stateProvider) => {
-
-    $stateProvider
+      $stateProvider
         .state('login', {
-            url: '/',
-            templateUrl: 'templates/login.html'
+          url: '/',
+          templateUrl: 'templates/login.html',
         })
         .state('home', {
-            url: '/home',
-            templateUrl: 'templates/home.html'
+          url: '/home',
+          templateUrl: 'templates/home.html',
         })
         .state('home.groups', {
-            url: '/groups',
-            templateUrl: 'templates/home/groups.html'
+          url: '/groups',
+          templateUrl: 'templates/home/groups.html',
         })
         .state('group', {
-            url: '/groups/{roomId}',
-            templateUrl: 'templates/chat.html',
-            params : { room: null }
+          url: '/groups/{roomId}',
+          templateUrl: 'templates/chat.html',
+          params: { room: null },
             // controller: 'ChatController'
         })
         .state('home.channels', {
-            url: '/channels',
-            templateUrl: 'templates/home/channels.html'
+          url: '/channels',
+          templateUrl: 'templates/home/channels.html',
         })
         .state('home.contacts', {
-            url: '/contacts',
-            templateUrl: 'templates/home/contacts.html'
+          url: '/contacts',
+          templateUrl: 'templates/home/contacts.html',
         });
 
       $locationProvider.html5Mode(true).hashPrefix('');
