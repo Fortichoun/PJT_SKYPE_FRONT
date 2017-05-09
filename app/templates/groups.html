@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <title>Qwirk Home</title>
+</head>
+
+<body>
+
+<div ng-controller="RoomController">
+
+    <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
+
+        <h2>New room : </h2>
+        <label for="roomName">Room name :</label>
+        <input type="text" id="roomName"
+               ng-model="information.roomName">
+
+        <button type="submit">Let's chat!</button>
+
+    </form>
+
+    <h1>Room {{room.name}}</h1>
+    <h2>Channels : </h2>
+    <div ng-repeat="room in rooms">
+        <button ng-click="selectRoom(room)">Room {{room.name}}</button>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

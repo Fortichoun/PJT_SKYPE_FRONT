@@ -1,19 +1,38 @@
 angular
-    .module('myApp', ['ngRoute', 'ngPassword', 'validation.match'])
-    .config(($routeProvider, $locationProvider) => {
+    .module('myApp', ['ngRoute', 'ngPassword', 'validation.match', 'ui.router'])
+    .config(($routeProvider, $locationProvider, $stateProvider) => {
+
+    $stateProvider
+        .state('login', {
+            url: '/',
+            templateUrl: 'templates/login.html'
+        })
+        .state('home', {
+            url: '/home',
+            templateUrl: 'templates/home.html'
+        })
+        .state('home.groups', {
+            url: '/groups',
+            templateUrl: 'templates/groups.html'
+        });
+
       $locationProvider.html5Mode(true).hashPrefix('');
-      $routeProvider
-            .when('/', {
-              templateUrl: 'templates/login.html',
-              // controller: 'controllers/ChatController'
-            })
-            .when('/home', {
-              templateUrl: 'templates/home.html',
-              // controller: 'controllers/ChatController'
-            })
-          .otherwise({
-            redirectTo: '/',
-          });
+      // $routeProvider
+      //       .when('/', {
+      //         templateUrl: 'templates/login.html',
+      //         // controller: 'controllers/ChatController'
+      //       })
+      //       .when('/home', {
+      //         templateUrl: 'templates/home.html',
+      //         // controller: 'controllers/ChatController'
+      //       })
+      //     .when('/home/groups', {
+      //         templateUrl: 'templates/groups.html',
+      //         // controller: 'controllers/ChatController'
+      //     })
+      //     .otherwise({
+      //       redirectTo: '/',
+      //     });
     })
     .factory('socket', ($rootScope) => {
       const socket = io.connect('localhost:3000');

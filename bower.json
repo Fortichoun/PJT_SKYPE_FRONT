@@ -15,6 +15,7 @@
     "angular-material-icons": "^0.7.1",
     "animate.css": "^3.5.2",
     "socket.io-client": "^1.7.2",
-    "angular-validation-match": "^1.9.0"
+    "angular-validation-match": "^1.9.0",
+    "angular-ui-router": "^1.0.3"
   }
 }
