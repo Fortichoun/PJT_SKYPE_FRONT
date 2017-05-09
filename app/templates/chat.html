@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+</head>
+
+<body>
+
+<a ui-sref="home.groups"><== Back to Home</a>
+
+<p>You are connected with : {{user.userName}}</p>
+
+<div ng-controller="ChatController">
+
+    <h1>Room {{room.name}}</h1>
+
+    <div ng-repeat="message in messages">
+        <p>{{message.user.userName}} : {{message.content}}</p>
+    </div>
+
+    <label>Message : <input type="text" ng-model="message"/></label><br />
+    <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+</div>
+
+</body>
+</html>

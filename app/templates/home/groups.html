@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="myApp">
+<html>
 <head>
     <title>Qwirk Home</title>
 </head>
@@ -19,10 +19,12 @@
 
     </form>
 
-    <h1>Room {{room.name}}</h1>
-    <h2>Channels : </h2>
+    <h1>Your groups :</h1>
+
     <div ng-repeat="room in rooms">
-        <button ng-click="selectRoom(room)">Room {{room.name}}</button>
+        <button ui-sref="group({roomId: room._id, room: room})">
+            Room {{room.name}}
+        </button>
     </div>
 
 
