@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!doctype html>
+<html>
+
 <body>
+
+<div ng-controller="ContactController">
+
+    <form name="ContactForm" ng-submit="searchContact(information)" novalidate>
+
+        <h2>Search contact : </h2>
+        <label for="contactEmail">Contact's email :</label>
+        <input type="text" id="contactEmail"
+               ng-model="information.contactEmail">
+
+        <button type="submit">Search!</button>
+
+    </form>
+
+    <div ng-if="userFound">
+        We've found : {{userFound.userName}}
+        <button ng-click="addContact()">Add to my contact list</button>
+    </div>
+    <div ng-if="userNotFound">Sorry, we don't know this email</div>
+
+    <h1>Your contacts :</h1>
+
+    <div ng-repeat="contact in user.contacts">
+        <button ui-sref="contact({roomId: room._id, room: room})">
+            Contact {{contact.userName}}
+        </button>
+    </div>
+
+
+
+</div>
 
 </body>
 </html>
