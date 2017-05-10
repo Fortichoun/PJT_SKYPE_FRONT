@@ -1,6 +1,6 @@
 angular
-    .module('myApp', ['ngRoute', 'ngPassword', 'validation.match', 'ui.router'])
-    .config(($routeProvider, $locationProvider, $stateProvider) => {
+    .module('myApp', ['validation.match', 'ui.router'])
+    .config(($locationProvider, $stateProvider) => {
       $stateProvider
         .state('login', {
           url: '/',
