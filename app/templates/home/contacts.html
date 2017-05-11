@@ -1,10 +1,6 @@
-<!doctype html>
-<html>
-
 <body>
 
 <div ng-controller="ContactController">
-
     <form name="ContactForm" ng-submit="searchContact(information)" novalidate>
 
         <h2>Search contact : </h2>
@@ -16,11 +12,11 @@
 
     </form>
 
-    <div ng-if="userFound">
+    <div ng-if="userFound" ng-model="test">
         We've found : {{userFound.userName}}
-        <button ng-click="addContact()">Add to my contact list</button>
     </div>
-    <div ng-if="userNotFound">Sorry, we don't know this email</div>
+    <button ng-if="notYouOrFriend"  ng-click="addContact()">Add to my contact list</button>
+    <span ng-if="message">{{message}}</span>
 
     <h1>Your contacts :</h1>
 
@@ -30,9 +26,12 @@
         </button>
     </div>
 
+    <h2>Invitations received :</h2>
 
+    <div ng-repeat="invitation in user.friendRequestReceived">
+        <div> Invitation {{invitation._id}} </div>
+    </div>
 
 </div>
 
 </body>
-</html>
