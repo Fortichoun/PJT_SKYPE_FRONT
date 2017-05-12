@@ -25,6 +25,12 @@ angular
           templateUrl: 'templates/chat/channel.html',
           params: { room: null },
         })
+          .state('contact', {
+              url: '/contacts/{roomId}',
+              templateUrl: 'templates/chat.html',
+              params: { room: null },
+              // controller: 'ChatController'
+          })
         .state('home.channels', {
           url: '/channels',
           templateUrl: 'templates/home/channels.html',
