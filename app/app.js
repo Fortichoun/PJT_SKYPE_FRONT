@@ -1,6 +1,7 @@
 angular
     .module('myApp', ['validation.match', 'ui.router'])
     .config(($locationProvider, $stateProvider) => {
+    // UI-Router, defines the routes
       $stateProvider
         .state('login', {
           url: '/',
@@ -16,9 +17,13 @@ angular
         })
         .state('group', {
           url: '/groups/{roomId}',
-          templateUrl: 'templates/chat.html',
+          templateUrl: 'templates/chat/group.html',
           params: { room: null },
-            // controller: 'ChatController'
+        })
+        .state('channel', {
+          url: '/channels/{roomId}',
+          templateUrl: 'templates/chat/channel.html',
+          params: { room: null },
         })
         .state('home.channels', {
           url: '/channels',
@@ -30,23 +35,9 @@ angular
         });
 
       $locationProvider.html5Mode(true).hashPrefix('');
-      // $routeProvider
-      //       .when('/', {
-      //         templateUrl: 'templates/login.html',
-      //         // controller: 'controllers/ChatController'
-      //       })
-      //       .when('/home', {
-      //         templateUrl: 'templates/home.html',
-      //         // controller: 'controllers/ChatController'
-      //       })
-      //     .when('/home/groups', {
-      //         templateUrl: 'templates/groups.html',
-      //         // controller: 'controllers/ChatController'
-      //     })
-      //     .otherwise({
-      //       redirectTo: '/',
-      //     });
     })
+
+    // SocketIO initialization
     .factory('socket', ($rootScope) => {
       const socket = io.connect('localhost:3000');
       return {

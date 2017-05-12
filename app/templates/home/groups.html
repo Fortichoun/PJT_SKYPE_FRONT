@@ -10,8 +10,8 @@
 
     <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
 
-        <h2>New room : </h2>
-        <label for="roomName">Room name :</label>
+        <h2>New group : </h2>
+        <label for="roomName">Group name :</label>
         <input type="text" id="roomName"
                ng-model="information.roomName">
 
@@ -23,7 +23,7 @@
 
     <div ng-repeat="room in rooms">
         <button ui-sref="group({roomId: room._id, room: room})">
-            Room {{room.name}}
+            Group {{room.name}}
         </button>
     </div>
 
