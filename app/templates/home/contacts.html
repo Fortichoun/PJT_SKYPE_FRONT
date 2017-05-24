@@ -22,14 +22,23 @@
 
     <div ng-repeat="contact in user.contacts">
         <button ui-sref="contact({roomId: room._id, room: room})">
-            Contact {{contact.userName}}
+            Contact {{contact._id.userName}}
         </button>
     </div>
 
     <h2>Invitations received :</h2>
 
     <div ng-repeat="invitation in user.friendRequestReceived">
-        <div> Invitation {{invitation._id}} </div>
+        <div> Invitation from {{invitation._id.userName}}
+            <button ng-click="acceptContact(invitation._id)">Accept</button>
+            <button ng-click="refuseContact(invitation._id)">Refuse</button>
+        </div>
+    </div>
+
+    <h2>Invitations sent :</h2>
+
+    <div ng-repeat="invitation in user.friendRequestSent">
+        <div> Invitation to {{invitation._id.userName}} </div>
     </div>
 
 </div>
