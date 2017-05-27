@@ -38,7 +38,11 @@ angular
         .state('home.contacts', {
           url: '/contacts',
           templateUrl: 'templates/home/contacts.html',
-        });
+        })
+          .state('home.settings', {
+              url: '/settings',
+              templateUrl: 'templates/home/settings.html',
+          });
 
       $locationProvider.html5Mode(true).hashPrefix('');
     })
