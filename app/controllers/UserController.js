@@ -1,7 +1,7 @@
 angular.module('myApp')
     // This controller handle the user login/registration
     .controller('UserController',
-      ($scope, $http, $location) => {
+      ($scope, $http, $location, FileUploader) => {
         $scope.information = {};
         $scope.credentials = {};
         $scope.errorMessage = '';
@@ -27,6 +27,7 @@ angular.module('myApp')
               });
           }
         };
+        // $scope.uploader = new FileUploader();
 
           // This function is called when the user try to register
         $scope.register = (registerForm) => {

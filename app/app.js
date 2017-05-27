@@ -1,5 +1,5 @@
 angular
-    .module('myApp', ['validation.match', 'ui.router'])
+    .module('myApp', ['validation.match', 'ui.router', 'angularFileUpload', 'vkEmojiPicker'])
     .config(($locationProvider, $stateProvider) => {
     // UI-Router, defines the routes
       $stateProvider
@@ -26,9 +26,9 @@ angular
           params: { room: null },
         })
           .state('contact', {
-              url: '/contacts/{roomId}',
-              templateUrl: 'templates/chat.html',
-              params: { room: null },
+            url: '/contacts/{roomId}',
+            templateUrl: 'templates/chat.html',
+            params: { room: null },
               // controller: 'ChatController'
           })
         .state('home.channels', {
