@@ -22,5 +22,9 @@
     "angular-emoji-picker": "^0.3.0",
     "angular-sanitize": "^1.6.4",
     "socket.io": "0.9.x"
+  },
+  "resolutions": {
+    "angular": "1.6.4",
+    "angular-sanitize": "^1.6.4"
   }
 }

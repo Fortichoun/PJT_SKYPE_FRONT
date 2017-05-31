@@ -1,18 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to Qwirk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
 
-<a ui-sref="home.groups"><== Back to Home</a>
+    <button class="margin-2" ui-sref="home.groups"><span class="glyphicon glyphicon-home"></span></button>
 
-<div ng-controller="ChatController">
+    <p class="status pull-right margin-1">You are connected with : {{user.userName}}</p>
+
+    <div ng-controller="ChatController">
+
+    <h1 class="text-center">Group {{room.name}}</h1>
+    <h1>Users in room : </h1>
+    <div ng-repeat="userInRoom in room.users">
+        <li>{{userInRoom._id.userName}}</li>
+    </div>
 
     <h1>Group {{room.name}}</h1>
 
-    <div ng-repeat="message in messages">
-        <p>{{message.user.userName}} : <span ng-bind-html="message.content | linky | enclosing | emojify"></span> {{message.createdAt | date : "MM/dd/yy | HH:mm"}}</p>
-    </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default panel-custom height-50" style="overflow-y: scroll">
+                    <div ng-repeat="message in messages">
+                        <p class="message">{{message.user.userName}} : <span ng-bind-html="message.content | linky | enclosing | emojify"></span> <span class="pull-right">{{message.createdAt | date : "MM/dd/yy | HH:mm"}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 background-glycine">
+                <div class="height-50">
+                    <h2>Participants :</h2>
+                </div>
 
-    <label>Message : <input type="text" ng-model="message"/></label>
-    <span emoji-picker="message" placement="right" title="Emoji"></span>
-    <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default panel-custom">
+            <label>Message : <input type="text" ng-model="message"/></label>
+            <span emoji-picker="message" placement="right" title="Emoji"></span>
+            <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+        </div>
 </div>
 <script src="../../scripts/latest-v2.js"></script>
 <div ng-controller="VideoCallController">

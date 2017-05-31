@@ -53,4 +53,20 @@ angular.module('myApp')
               });
           }
         };
+
+            //This function is called when the user make some modifications
+        $scope.modify = (modificationForm) => {
+            $scope.modificationMessage = '';
+            if (modificationForm.$valid) {
+                $http.post('http://localhost:3000/api/settings', {
+                    userId: $scope.user._id,
+                    newUserName: document.getElementById('userName').value,
+                    newBio: document.getElementById('bio').value,
+                })
+                    .then((response) => {
+                    $scope.modificationMessage = "Informations are updated";
+                    $scope.user = response.data;
+                    });
+            }
+        };
       });

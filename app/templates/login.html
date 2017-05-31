@@ -1,84 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to Qwirk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
 
-<form name="loginForm" ng-submit="login(loginForm)" novalidate>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h1 class="text-center color-white">Qwirk</h1>
 
-    <input type="email" required placeholder="Email" name="email"
-           ng-model="credentials.email">
-    <span style="color:red" ng-show="loginForm.$submitted && loginForm.email.$invalid ">
-         The email is invalid.
-    </span>
+            <hr>
 
-    <input type="password" required placeholder="Password" name="password"
-           ng-model="credentials.password">
-    <span style="color:red" ng-show="loginForm.$submitted && loginForm.password.$invalid">
-         Password is required.
-    </span>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Log in</h2>
+                    <form class="form-inline" name="loginForm" ng-submit="login(loginForm)" novalidate>
+                        <div class="form-group">
+                            <input type="email" class="form-control" required placeholder="Email" name="email"
+                                   ng-model="credentials.email">
+                            <span style="color:red" ng-show="loginForm.$submitted && loginForm.email.$invalid ">
+                             The email is invalid.
+                            </span>
 
-    <button type="submit">Login</button>
+                            <input type="password" class="form-control" required placeholder="Password" name="password"
+                                   ng-model="credentials.password">
+                            <span style="color:red" ng-show="loginForm.$submitted && loginForm.password.$invalid">
+                             Password is required.
+                            </span>
 
-    <span style="color:red">
-         {{errorMessage}}
-    </span>
+                            <button class="btn btn-success" type="submit">Login</button>
 
-</form>
+                            <span style="color:red">
+                                {{errorMessage}}
+                            </span>
+                        </div>
+                    </form>
+                </div>
 
-<form name="registerForm" ng-submit="register(registerForm)" novalidate>
+                <div class="col-md-6">
+                    <h2> Register</h2>
+                    <form class="form-horizontal" name="registerForm" ng-submit="register(registerForm)" novalidate>
+                        <div class="form-group">
+                            <label class="test control-label col-sm-4">Username :</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" required name="userName"
+                                       ng-model="information.userName">
+                                <span style="color:red" ng-show="registerForm.$submitted && registerForm.userName.$invalid">
+                                 Username is required.
+                                </span>
+                            </div>
+                        </div>
 
-    <label class="test">Username :</label>
-    <input type="text" required name="userName"
-           ng-model="information.userName">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Email :</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="email" required name="email"
+                                       ng-model="information.email">
 
-    <span style="color:red" ng-show="registerForm.$submitted && registerForm.userName.$invalid">
-         Username is required.
-    </span>
+                                <span style="color:red" ng-show="registerForm.$submitted && registerForm.email.$invalid ">
+                                 The email is invalid.
+                                </span>
+                            </div>
+                        </div>
 
-    <label>Email :</label>
-    <input type="email" required name="email"
-           ng-model="information.email">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Password :</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="password" required name="password"
+                                       ng-model="information.password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+                                <span style="color:red" ng-show="registerForm.$submitted && registerForm.password.$invalid">
+                                 Password should be at least 8 characters long and should contain one number, one letter and one special character.
+                                </span>
+                            </div>
+                        </div>
 
-    <span style="color:red" ng-show="registerForm.$submitted && registerForm.email.$invalid ">
-         The email is invalid.
-    </span>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Confirm password :</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="password" required name="confirmPassword"
+                                       ng-model="information.confirmPassword" data-match="information.password">
+                                <span style="color:red" data-ng-show="registerForm.confirmPassword.$error.match && registerForm.password.$valid">
+                                 Passwords do not match.
+                                </span>
+                            </div>
+                        </div>
 
-    <label>Password :</label>
-    <input type="password" required name="password"
-           ng-model="information.password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
-    <span style="color:red" ng-show="registerForm.$submitted && registerForm.password.$invalid">
-         Password should be at least 8 characters long and should contain one number, one letter and one special character.
-    </span>
-
-    <label>Confirm password :</label>
-    <input type="password" required name="confirmPassword"
-           ng-model="information.confirmPassword" data-match="information.password">
-    <span style="color:red" data-ng-show="registerForm.confirmPassword.$error.match && registerForm.password.$valid">
-         Passwords do not match.
-    </span>
-
-    <label>Date of birth:</label>
-    <input type="text" required placeholder="MM/DD/YYYY" name="dateOfBirth"
-           ng-model="information.dateOfBirth" ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19\d{2}|20[0-1][0-7])$/">
-    <span style="color:red" ng-show="registerForm.$submitted && registerForm.dateOfBirth.$invalid ">
-         The date of birth is invalid.
-    </span>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Date of birth:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" required placeholder="MM/DD/YYYY" name="dateOfBirth"
+                                       ng-model="information.dateOfBirth" ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19\d{2}|20[0-1][0-7])$/">
+                                <span style="color:red" ng-show="registerForm.$submitted && registerForm.dateOfBirth.$invalid ">
+                                 The date of birth is invalid.
+                                </span>
+                            </div>
+                        </div>
 
 
-    <!--<label for="RegisterPicture">Profile Picture :</label>-->
-    <!--<input type="file" nv-file-select onclick="uploader()"/>-->
-    <!--<input type="file" nv-file-select="" uploader="uploader"/>-->
-    <!--<input type="file" id="RegisterPicture"-->
-           <!--ng-model="information.picture">-->
+                            <!--<label for="RegisterPicture">Profile Picture :</label>-->
+                            <!--<input type="file" nv-file-select onclick="uploader()"/>-->
+                            <!--<input type="file" nv-file-select="" uploader="uploader"/>-->
+                            <!--<input type="file" id="RegisterPicture"-->
+                            <!--ng-model="information.picture">-->
 
-    <label for="RegisterBio">Bio :</label>
-    <textarea id="RegisterBio"
-           ng-model="information.bio" ng-maxlength="100">
-    </textarea>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="RegisterBio">Bio :</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="RegisterBio"
+                                          ng-model="information.bio" ng-maxlength="100">
+                                </textarea>
+                            </div>
+                        </div>
+                        <button class="btn btn-success pull-right" type="submit">Register</button>
 
-    <button type="submit">Register</button>
-
-    <span style="color:red">
-         {{errorSaveMessage}}
-    </span>
-
-</form>
+                        <span style="color:red">
+                             {{errorSaveMessage}}
+                            </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
+</html>

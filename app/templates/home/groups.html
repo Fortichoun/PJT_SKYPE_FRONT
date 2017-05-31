@@ -2,23 +2,51 @@
 
 <div ng-controller="RoomController">
 
-    <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
+    <div class="panel panel-default panel-custom">
+        <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
 
+<<<<<<< HEAD
+            <h2>New group : </h2>
+            <label for="roomName">Group name :</label>
+            <input type="text" id="roomName"
+                   ng-model="information.roomName">
+
+            <button type="submit">Let's chat!</button>
+
+        </form>
+    </div>
+=======
         <h2>New group : </h2>
         <label for="roomName">Group name :</label>
-        <input type="text" id="roomName"
+        <input type="text" id="roomName" name="roomName" required
                ng-model="information.roomName">
+
+        <span style="color:red" ng-show="RoomForm.$submitted && RoomForm.roomName.$invalid">
+         Group name is required.
+        </span>
+
+        <div ng-repeat="contact in user.contacts">
+            <!--<input type="checkbox" checklist-model="information.selected.contact._id._id" checklist-value="contact._id._id"> {{contact._id.userName}}-->
+            <input type="checkbox" ng-model="information.selected[contact._id._id]" > {{contact._id.userName}}
+        </div>
 
         <button type="submit">Let's chat!</button>
 
+        <span style="color:red">
+         {{errorSaveMessage}}
+        </span>
+
     </form>
+>>>>>>> 3ec3d86b3145f8a8428b4ea302271468f27930ce
 
-    <h1>Your groups :</h1>
+    <div class="panel panel-default panel-custom">
+        <h1>Your groups :</h1>
 
-    <div ng-repeat="room in rooms">
-        <button ui-sref="group({roomId: room._id, room: room})">
-            Group {{room.name}}
-        </button>
+        <div ng-repeat="room in rooms">
+            <button class="margin-1" ui-sref="group({roomId: room._id, room: room})">
+                Group {{room.name}}
+            </button>
+        </div>
     </div>
 
 </div>
