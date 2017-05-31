@@ -6,10 +6,23 @@
 
         <h2>New group : </h2>
         <label for="roomName">Group name :</label>
-        <input type="text" id="roomName"
+        <input type="text" id="roomName" name="roomName" required
                ng-model="information.roomName">
 
+        <span style="color:red" ng-show="RoomForm.$submitted && RoomForm.roomName.$invalid">
+         Group name is required.
+        </span>
+
+        <div ng-repeat="contact in user.contacts">
+            <!--<input type="checkbox" checklist-model="information.selected.contact._id._id" checklist-value="contact._id._id"> {{contact._id.userName}}-->
+            <input type="checkbox" ng-model="information.selected[contact._id._id]" > {{contact._id.userName}}
+        </div>
+
         <button type="submit">Let's chat!</button>
+
+        <span style="color:red">
+         {{errorSaveMessage}}
+        </span>
 
     </form>
 

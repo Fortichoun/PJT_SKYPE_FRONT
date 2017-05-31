@@ -10,6 +10,10 @@ angular.module('myApp')
               .then((response) => {
                 $scope.messages = response.data;
               });
+            $http.get(`http://localhost:3000/api/rooms/usersInRoom?room=${$scope.room._id}`)
+                .then((response) => {
+                    $scope.room = response.data;
+                });
         });
           // This function emit a new message using SocketIO
         $scope.sendMessage = (message) => {
