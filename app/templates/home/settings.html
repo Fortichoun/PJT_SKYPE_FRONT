@@ -1,0 +1,41 @@
+<body>
+    <form name="modificationForm" ng-submit="modify(modificationForm)" novalidate>
+
+        <label class="test">Username :</label>
+        <input type="text" required id="userName" name="userName" value="{{user.userName}}">
+        <!--
+        <label>Password :</label>
+        <input type="password" required name="password"
+               ng-model="modify.password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+        <span style="color:red" ng-show="registerForm.$submitted && registerForm.password.$invalid">
+         Password should be at least 8 characters long and should contain one number, one letter and one special character.
+        </span>
+        <label>Password :</label>
+        <input type="password" required name="newPassword"
+               ng-model="modify.newPassword" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+        <span style="color:red" ng-show="registerForm.$submitted && registerForm.password.$invalid">
+         Password should be at least 8 characters long and should contain one number, one letter and one special character.
+        </span>
+        <label>Confirm password :</label>
+        <input type="password" required name="confirmNewPassword"
+               ng-model="modify.confirmNewPassword" data-match="modify.newPassword">
+        <span style="color:red" data-ng-show="registerForm.confirmPassword.$error.match && registerForm.password.$valid">
+         Passwords do not match.
+        </span>
+        -->
+
+        <!--<label for="RegisterPicture">Profile Picture :</label>
+        <input type="file" id="RegisterPicture" value="{{user.RegisterPicture}}">-->
+
+        <label for="bio">Bio :</label>
+        <textarea id="bio" name="bio" ng-maxlength="100" >{{user.bio}}
+        </textarea>
+
+        <button type="submit">Save modifications</button>
+
+        <span style="color:red">
+         {{errorSaveMessage}}
+        </span>
+        <span ng-if="modificationMessage">{{modificationMessage}}</span>
+    </form>
+</body>

@@ -1,0 +1,41 @@
+<body>
+
+<div ng-controller="RoomController">
+
+    <div class="panel panel-default panel-custom">
+        <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
+
+            <h2>New group : </h2>
+            <label for="roomName">Group name :</label>
+            <input type="text" id="roomName"
+                   ng-model="information.roomName">
+
+            <button type="submit">Let's chat!</button>
+            <span style="color:red" ng-show="RoomForm.$submitted && RoomForm.roomName.$invalid">
+                Group name is required.
+            </span>
+
+            <h2> Add contacts in the group : </h2>
+            <div ng-repeat="contact in user.contacts">
+                <input type="checkbox" ng-model="information.selected[contact._id._id]" > {{contact._id.userName}}
+            </div>
+
+            <span style="color:red">
+         {{errorSaveMessage}}
+        </span>
+        </form>
+    </div>
+
+    <div class="panel panel-default panel-custom">
+        <h1>Your groups :</h1>
+
+        <div ng-repeat="room in rooms">
+            <button class="margin-1" ui-sref="group({roomId: room._id, room: room})">
+                Group {{room.name}}
+            </button>
+        </div>
+    </div>
+
+</div>
+
+</body>
