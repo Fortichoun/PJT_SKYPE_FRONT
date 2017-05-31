@@ -6,6 +6,11 @@
 
 <div ng-controller="ChatController">
 
+    <h1>Users in room : </h1>
+    <div ng-repeat="userInRoom in room.users">
+        <li>{{userInRoom._id.userName}}</li>
+    </div>
+
     <h1>Group {{room.name}}</h1>
 
     <div ng-repeat="message in messages">

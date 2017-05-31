@@ -56,7 +56,6 @@ angular.module('myApp')
                         $scope.notYouOrFriend = false;
                         $scope.message = "The request has been successfully sent";
                         $scope.user = response.data;
-
                     })
             };
             // This function handle the 'Accept' button on friend request received
