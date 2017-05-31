@@ -2,23 +2,27 @@
 
 <div ng-controller="RoomController">
 
-    <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
+    <div class="panel panel-default panel-custom">
+        <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
 
-        <h2>New group : </h2>
-        <label for="roomName">Group name :</label>
-        <input type="text" id="roomName"
-               ng-model="information.roomName">
+            <h2>New group : </h2>
+            <label for="roomName">Group name :</label>
+            <input type="text" id="roomName"
+                   ng-model="information.roomName">
 
-        <button type="submit">Let's chat!</button>
+            <button type="submit">Let's chat!</button>
 
-    </form>
+        </form>
+    </div>
 
-    <h1>Your groups :</h1>
+    <div class="panel panel-default panel-custom">
+        <h1>Your groups :</h1>
 
-    <div ng-repeat="room in rooms">
-        <button ui-sref="group({roomId: room._id, room: room})">
-            Group {{room.name}}
-        </button>
+        <div ng-repeat="room in rooms">
+            <button class="margin-1" ui-sref="group({roomId: room._id, room: room})">
+                Group {{room.name}}
+            </button>
+        </div>
     </div>
 
 </div>

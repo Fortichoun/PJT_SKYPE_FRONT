@@ -21,5 +21,9 @@
     "jquery": "^3.2.1",
     "angular-emoji-picker": "^0.3.0",
     "angular-sanitize": "^1.6.4"
+  },
+  "resolutions": {
+    "angular": "1.6.4",
+    "angular-sanitize": "^1.6.4"
   }
 }

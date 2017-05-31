@@ -1,35 +1,42 @@
 <body>
 
 <div ng-controller="ContactController">
-    <form name="ContactForm" ng-submit="searchContact(information)" novalidate>
 
-        <h2>Search contact : </h2>
-        <label for="contactEmail">Contact's email :</label>
-        <input type="text" id="contactEmail"
-               ng-model="information.contactEmail">
+    <div class="panel panel-default panel-custom">
+        <form name="ContactForm" ng-submit="searchContact(information)" novalidate>
 
-        <button type="submit">Search!</button>
+            <h2>Search contact : </h2>
+            <label for="contactEmail">Contact's email :</label>
+            <input type="text" id="contactEmail"
+                   ng-model="information.contactEmail">
 
-    </form>
+            <button type="submit">Search!</button>
 
-    <div ng-if="userFound" ng-model="test">
-        We've found : {{userFound.userName}}
-    </div>
-    <button ng-if="notYouOrFriend"  ng-click="addContact()">Add to my contact list</button>
-    <span ng-if="message">{{message}}</span>
+        </form>
 
-    <h1>Your contacts :</h1>
-
-    <div ng-repeat="contact in user.contacts">
-        <button ui-sref="contact({roomId: room._id, room: room})">
-            Contact {{contact.userName}}
-        </button>
+        <div ng-if="userFound" ng-model="test">
+            We've found : {{userFound.userName}}
+        </div>
+        <button ng-if="notYouOrFriend"  ng-click="addContact()">Add to my contact list</button>
+        <span ng-if="message">{{message}}</span>
     </div>
 
-    <h2>Invitations received :</h2>
+    <div class="panel panel-default panel-custom">
+        <h1>Your contacts :</h1>
 
-    <div ng-repeat="invitation in user.friendRequestReceived">
-        <div> Invitation {{invitation._id}} </div>
+        <div ng-repeat="contact in user.contacts">
+            <button class="margin-1" ui-sref="contact({roomId: room._id, room: room})">
+                Contact {{contact.userName}}
+            </button>
+        </div>
+    </div>
+
+    <div class="panel panel-default panel-custom">
+        <h2>Invitations received :</h2>
+
+        <div ng-repeat="invitation in user.friendRequestReceived">
+            <div> Invitation {{invitation._id}} </div>
+        </div>
     </div>
 
 </div>
