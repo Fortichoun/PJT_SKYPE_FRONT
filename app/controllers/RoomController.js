@@ -9,18 +9,37 @@ angular.module('myApp')
                 .then((response) => {
                   $scope.rooms = response.data;
                 });
+            $http({
+                    method: 'GET',
+                    url: 'http://localhost:3000/api/contacts/allContacts',
+                    params: {
+                        user: $scope.user._id,
+                    }
+                }
+            )
+                .then((user) => {
+                    $scope.user = user.data;
+                });
         });
         // Handle the creation of a new group / channel / private chat in base
         $scope.createRoom = (information) => {
-          $http.post('http://localhost:3000/api/rooms', {
-            roomName: information.roomName,
-            user: $scope.user._id,
-            typeOfRoom: window.location.pathname.substring(6),
-          })
-                 .then((response) => {
-                   $scope.information.roomName = '';
-                   $scope.room = response.data.room;
-                   $scope.rooms.push(response.data.room);
-                 });
+            console.log($scope);
+            if ($scope.RoomForm.$invalid === false) {
+                const usersInRoom = [];
+                angular.forEach(information.selected, function (value, key) {
+                    if (value === true) usersInRoom.push(key);
+                });
+                $http.post('http://localhost:3000/api/rooms', {
+                    roomName: information.roomName,
+                    user: $scope.user._id,
+                    typeOfRoom: window.location.pathname.substring(6),
+                    usersInRoom,
+                })
+                    .then((response) => {
+                        $scope.information.roomName = '';
+                        $scope.room = response.data.room;
+                        $scope.rooms.push(response.data.room);
+                    });
+            }
         };
       });

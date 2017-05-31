@@ -16,7 +16,16 @@
 
     <div ng-controller="ChatController">
 
+<<<<<<< HEAD
         <h1 class="text-center">Group {{room.name}}</h1>
+=======
+    <h1>Users in room : </h1>
+    <div ng-repeat="userInRoom in room.users">
+        <li>{{userInRoom._id.userName}}</li>
+    </div>
+
+    <h1>Group {{room.name}}</h1>
+>>>>>>> 3ec3d86b3145f8a8428b4ea302271468f27930ce
 
         <div class="row">
             <div class="col-md-8">
