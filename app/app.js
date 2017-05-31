@@ -1,5 +1,5 @@
 angular
-    .module('myApp', ['validation.match', 'ui.router', 'angularFileUpload', 'vkEmojiPicker'])
+    .module('myApp', ['ngRoute', 'validation.match', 'ui.router', 'angularFileUpload', 'vkEmojiPicker'])
     .config(($locationProvider, $stateProvider) => {
     // UI-Router, defines the routes
       $stateProvider

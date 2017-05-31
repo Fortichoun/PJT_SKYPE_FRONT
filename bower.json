@@ -20,6 +20,7 @@
     "angular-file-upload": "^2.5.0",
     "jquery": "^3.2.1",
     "angular-emoji-picker": "^0.3.0",
-    "angular-sanitize": "^1.6.4"
+    "angular-sanitize": "^1.6.4",
+    "socket.io": "0.9.x"
   }
 }
