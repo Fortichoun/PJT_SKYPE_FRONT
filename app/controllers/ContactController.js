@@ -3,8 +3,6 @@ angular.module('myApp')
         ($scope, socket, $http) => {
           $scope.information = {};
           $scope.message = '';
-          $scope.searchContact = (information) => {
-            $scope.message = '';
             // This call intend to bind every _id in user.contacts, user.friendRequestSent
             // and user.friendRequestReceived to real user object
             $http({
