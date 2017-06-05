@@ -1,7 +1,7 @@
 angular.module('myApp')
     // This controller handle the user login/registration
     .controller('UserController',
-      ($scope, $http, $location, FileUploader) => {
+      ($scope, $http, $location, HOST_CONFIG) => {
         $scope.information = {};
         $scope.credentials = {};
         $scope.errorMessage = '';
@@ -10,7 +10,7 @@ angular.module('myApp')
         // This function is called when the user try to login
         $scope.login = (loginForm) => {
           if (loginForm.$valid) {
-            $http.post('http://localhost:3000/api/authenticate', {
+            $http.post(`http://${HOST_CONFIG.url}:3000/api/authenticate`, {
               email: $scope.credentials.email,
               password: $scope.credentials.password,
             })
@@ -19,8 +19,9 @@ angular.module('myApp')
               .then((response) => {
                 if (response.data.success) {
                   $scope.user = response.data.user;
-                  $scope.token = response.data.token;
-                  $location.path('/home');
+                  $scope.credentials = {};
+                    $scope.errorMessage = "";
+                    $location.path('/home');
                 } else {
                   $scope.errorMessage = 'Sorry, wrong credentials.';
                 }
@@ -32,12 +33,12 @@ angular.module('myApp')
           // This function is called when the user try to register
         $scope.register = (registerForm) => {
           if (registerForm.$valid) {
-            $http.post('http://localhost:3000/api/register', {
+            $http.post(`http://${HOST_CONFIG.url}:3000/api/register`, {
               userName: $scope.information.userName,
               email: $scope.information.email,
               password: $scope.information.password,
               picture: $scope.information.picture,
-              birthDate: $scope.information.dateOfBirth,
+              birthDate: $scope.information.birthDate,
               bio: $scope.information.bio,
             })
             // If the email doesn't already exist in base
@@ -45,8 +46,9 @@ angular.module('myApp')
               .then((response) => {
                 if (response.data.success) {
                   $scope.user = response.data.user;
-                  $scope.token = response.data.token;
-                  $location.path('/home');
+                  $scope.informations = {};
+                    $scope.errorMessage = "";
+                    $location.path('/home');
                 } else {
                   $scope.errorSaveMessage = response.data.message;
                 }
@@ -58,7 +60,7 @@ angular.module('myApp')
         $scope.modify = (modificationForm) => {
             $scope.modificationMessage = '';
             if (modificationForm.$valid) {
-                $http.post('http://localhost:3000/api/settings', {
+                $http.post(`http://${HOST_CONFIG.url}:3000/api/settings`, {
                     userId: $scope.user._id,
                     newUserName: document.getElementById('userName').value,
                     newBio: document.getElementById('bio').value,
@@ -68,5 +70,15 @@ angular.module('myApp')
                     $scope.user = response.data;
                     });
             }
+        };
+        $scope.disconnect = () => {
+            $scope.user = {};
+            $scope.credentials = {};
+            $scope.information = {};
+          };
+
+        $scope.callModal = (userId) => {
+            console.log('helloModal');
+            console.log(userId);
         };
       });

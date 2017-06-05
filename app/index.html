@@ -1,7 +1,7 @@
 <!doctype html>
 <html ng-app="myApp">
 <head>
-    <base href="/">
+    <base href="">
     <title>Qwirk</title>
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
     <link rel="stylesheet" href="./bower_components/angular-emoji-picker/dist/css/emoji-picker.css">
@@ -17,6 +17,7 @@
     <script src="./bower_components/angular-validation-match/dist/angular-validation-match.js"></script>
     <script src="./bower_components/angular-file-upload/dist/angular-file-upload.js"></script>
     <script src="./bower_components/angular-emoji-picker/dist/js/emoji-picker.js"></script>
+    <script src="./scripts/latest-v2.js"></script>
     <script src="./app.js"></script>
     <script src="./controllers/UserController.js"></script>
     <script src="./controllers/ChatController.js"></script>
@@ -28,7 +29,6 @@
 <body>
 
 <div ng-controller="UserController">
-    <h1 ng-if="user">You are connected with : {{user.userName}}</h1>
     <ui-view></ui-view>
 </div>
 

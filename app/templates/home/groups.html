@@ -10,15 +10,18 @@
             <input type="text" id="roomName"
                    ng-model="information.roomName">
 
-            <button type="submit">Let's chat!</button>
             <span style="color:red" ng-show="RoomForm.$submitted && RoomForm.roomName.$invalid">
                 Group name is required.
             </span>
 
-            <h2> Add contacts in the group : </h2>
+            <h3> Add contacts in this new group : </h3>
             <div ng-repeat="contact in user.contacts">
                 <input type="checkbox" ng-model="information.selected[contact._id._id]" > {{contact._id.userName}}
             </div>
+
+            <br/>
+
+            <button type="submit">Let's chat!</button>
 
             <span style="color:red">
          {{errorSaveMessage}}

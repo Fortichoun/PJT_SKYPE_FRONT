@@ -10,36 +10,171 @@
 </head>
 <body>
 
-    <button class="margin-2" ui-sref="home.channels"><span class="glyphicon glyphicon-home"></span> </button>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <button class="btn-home margin-2" ui-sref="home.channels"><span class="glyphicon glyphicon-home"></span></button>
+        <!--<h1 class="title">Qwirk</h1>-->
+        <div class="status pull-right margin-1">
+            <p>You are connected with : {{user.userName}}</p>
+            <a ng-click='disconnect()' ui-sref="login">Log out</a>
+        </div>
+    </div>
+</div>
 
-    <div ng-controller="ChatController">
+<div ng-controller="ChatController">
 
-        <h1 class="text-center">Channel {{room.name}}</h1>
+    <h1 class="text-center">Channel {{room.name}}</h1>
 
-        <div class="row">
-            <div class="col-md-8">
-                <div class="panel panel-default panel-custom height-50" style="overflow-y: scroll">
-                    <div ng-repeat="message in messages">
-                        <p class="message">{{message.user.userName}} : {{message.content | emojify }} <span class="pull-right">{{message.createdAt | date : "MM/dd/yy | HH:mm"}}</span></p>
-                    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default panel-custom height-50" style="overflow-y: scroll">
+                <div ng-repeat="message in messages">
+                    <p class="message">{{message.user.userName}} : <span ng-bind-html="message.content | linky | enclosing | emojify"></span> <span class="pull-right">{{message.createdAt | date : "MM/dd/yy | HH:mm"}}</span></p>
                 </div>
             </div>
-            <div class="col-md-4 background-glycine">
-                <div class="height-50">
-                    <h2>Participants :</h2>
+        </div>
+        <div class="col-md-4 background-glycine">
+            <div class="height-50 participants">
+                <h2>Participants :</h2>
+                <button class="btn-leave pull-right" ng-click="leaveRoom()">Leave Room <span class="glyphicon glyphicon-share-alt"></span></button>
+                <div ng-repeat="contact in room.users">
+                    <select ng-if="contact._id._id !== user._id" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
+                        <option value="" ng-selected="selected" disabled hidden>{{contact._id.userName}}</option>
+                        <!--<option value="1">Chat with {{contact._id.userName}}</option>-->
+                        <option value="2">See profile</option>
+                        <!--<option value="3">Remove him from contacts list</option>-->
+                    </select>
                 </div>
 
+                <h2>Add contacts in this channel : </h2>
+                <div ng-repeat="contact in user.contacts">
+                    <button ng-click="addContactToRoom(contact._id)"> Add {{contact._id.userName}}</button>
+                </div>
+                <!--<div ng-repeat="userInRoom in room.users">-->
+                <!--<p> - {{userInRoom._id.userName}}</p>-->
+                <!--</div>-->
             </div>
         </div>
-
-        <div class="panel panel-default panel-custom">
-            <label>Message : <input type="text" ng-model="message"/></label>
-            <span emoji-picker="message" placement="right" title="Emoji"></span>
-            <button ng-click="sendMessage(message)">SEND MESSAGE</button>
-        </div>
-
     </div>
 
+
+    <div class="panel panel-default panel-custom">
+        <label>Message : <input type="text" ng-model="message"/></label>
+        <span emoji-picker="message" placement="right" title="Emoji"></span>
+        <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+
+        <div ng-controller="VideoCallController">
+            <div id="acceptCall">
+                <button id="callRoom" ng-click="callRoom()">Video call users in room</button>
+                <button id="audioRoom" ng-click="audioRoom()">Audio call users in room</button>
+                <div ng-if="errorMessage">{{errorMessage}}</div>
+            </div>
+
+            <div id="videoContainerLocal" class="videoContainerLocal">
+                <audio id="localAudio"></audio>
+                <video id="localVideo" oncontextmenu="return false;"></video>
+                <div id="localVolume" class="volume_bar"></div>
+            </div>
+            <div id="localScreenContainer" class="videoContainer">
+            </div>
+            <div id="remotes"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog"
+         aria-labelledby = "myModalLabel" aria-hidden = "true">
+
+        <div class = "modal-dialog">
+            <div class = "modal-content">
+
+
+                <div class = "modal-header">
+                    <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                        &times;
+                    </button>
+
+                    <h4 class = "modal-title" id = "myModalLabel">
+                        {{contactProfile.userName}}'s Profile
+                    </h4>
+                </div>
+
+                <div class = "modal-body">
+
+                    <!--<label class="control-label col-sm-4">Email :</label>-->
+                    <!--<div class="col-sm-4">-->
+                    <div>Email : {{contactProfile.email}}</div>
+                    <!--</div>-->
+                    <br/>
+
+                    <!--<label class="control-label col-sm-4">Date of birth:</label>-->
+                    <!--<div class="col-sm-4">-->
+                    <div>Birth date : {{contactProfile.birthDate ?  (contactProfile.birthDate | date : "MM/dd/yyyy") : "Not informed yet"}}</div>
+                    <!--</div>-->
+                    <br/>
+
+                    <!--<label for="RegisterPicture">Profile Picture :</label>-->
+                    <!--<input type="file" nv-file-select onclick="uploader()"/>-->
+                    <!--<input type="file" nv-file-select="" uploader="uploader"/>-->
+                    <!--<input type="file" id="RegisterPicture"-->
+                    <!--ng-model="information.picture">-->
+
+                    <!--<label class="control-label col-sm-4">Bio :</label>-->
+                    <!--<div class="col-sm-6">-->
+                    <div>Bio : {{contactProfile.bio ? contactProfile.bio : "Not informed yet"}}</div>
+                    <!--</div>-->
+
+                </div>
+                <!--<div class = "modal-footer">-->
+                <!--Hello-->
+                <!--</div>-->
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
 </body>
 
-</html>
+<style>
+    .bold {
+        font-weight: bold;
+    }
+    .italic {
+        font-style: italic;
+    }
+    .underline {
+        text-decoration: underline;
+    }
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .videoContainer {
+        position: relative;
+        width: 500px;
+        height: 400px;
+    }
+    .videoContainerLocal {
+        position: relative;
+        width: 200px;
+        height: 150px;
+    }
+    video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .volume_bar {
+        position: absolute;
+        width: 5px;
+        height: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: #12acef;
+    }
+    #localScreenContainer {
+        display: none;
+    }
+</style>

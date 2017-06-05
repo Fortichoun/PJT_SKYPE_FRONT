@@ -1,7 +1,7 @@
 angular.module('myApp')
 // This controller handle the user login/registration
     .controller('VideoCallController',
-        ($scope, $rootScope, socket, $http, $location, $stateParams, $compile) => {
+        ($scope, $rootScope, socket, $http, $location, $stateParams, $compile, HOST_CONFIG) => {
           $scope.room = $stateParams.room;
           let userInRoomToken = 0;
           let token = 0;
@@ -20,7 +20,7 @@ angular.module('myApp')
             media: { video: true, audio: true },
             detectSpeakingEvents: true,
             autoAdjustMic: false,
-            url: 'http://localhost:8888/',
+            url: `http://${HOST_CONFIG.url}:8888/`,
           });
 
             webrtc.on('channelMessage', function(peer, label, data) {
