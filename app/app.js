@@ -1,5 +1,9 @@
 angular
-    .module('myApp', ['validation.match', 'ui.router', 'angularFileUpload', 'vkEmojiPicker'])
+    .module('myApp', ['ngRoute', 'validation.match', 'ui.router', 'angularFileUpload', 'vkEmojiPicker'])
+    .constant('HOST_CONFIG', {
+    url: 'localhost',
+    // url: '79.137.37.194',
+    })
     .config(($locationProvider, $stateProvider) => {
     // UI-Router, defines the routes
       $stateProvider
@@ -25,11 +29,10 @@ angular
           templateUrl: 'templates/chat/channel.html',
           params: { room: null },
         })
-          .state('contact', {
-            url: '/contacts/{roomId}',
-            templateUrl: 'templates/chat.html',
-            params: { room: null },
-              // controller: 'ChatController'
+        .state('contact', {
+          url: '/contacts/{roomId}',
+          templateUrl: 'templates/chat/contact.html',
+          params: { room: null },
           })
         .state('home.channels', {
           url: '/channels',
@@ -44,12 +47,13 @@ angular
               templateUrl: 'templates/home/settings.html',
           });
 
-      $locationProvider.html5Mode(true).hashPrefix('');
+      $locationProvider.hashPrefix('');
+      $locationProvider.html5Mode({ requireBase: true});
     })
 
     // SocketIO initialization
-    .factory('socket', ($rootScope) => {
-      const socket = io.connect('localhost:3000');
+    .factory('socket', ($rootScope, HOST_CONFIG) => {
+      const socket = io.connect(`http://${HOST_CONFIG.url}:3000`);
       return {
         on(eventName, callback) {
           socket.on(eventName, (...args) => {

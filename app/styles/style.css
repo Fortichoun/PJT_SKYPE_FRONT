@@ -20,16 +20,20 @@ body{
     background-color: #884DA7;
 }
 
-
-.test {
-    color: purple;
-}
-
 .panel-body{
     background-color: #C9A0DC;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+    /*position: relative;*/
 }
+
+/*.title {*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*width: 100px;*/
+/*}*/
 
 .color-white{
     color: white;
@@ -93,7 +97,7 @@ input{
 }
 
 .margin-1{
-margin: 1em;
+   margin: 1em;
 }
 
 .margin-2{
@@ -109,7 +113,50 @@ margin: 1em;
     overflow-y: scroll;
 }
 
+<<<<<<< HEAD
 .img-center {
     margin:10px auto;
 
+=======
+select {
+    /*for firefox*/
+    -moz-appearance: none;
+    /*for chrome*/
+    -webkit-appearance:none;
+}
+
+/*for IE10*/
+select::-ms-expand {
+    display: none;
+}
+
+/*.participants select option {*/
+    /*background-color: #C9A0DC;*/
+/*}*/
+
+.participants select {
+    background-color: #C9A0DC;
+}
+
+.btn-home {
+    background-color: #884DA7 !important;
+}
+
+.btn-leave {
+    background-color: #884DA7 !important;
+    margin-right: 2%;
+    margin-top: -8%
+}
+
+.usersInRoom {
+    cursor:pointer;
+}
+
+.contacts {
+    cursor:pointer;
+}
+
+.userProfile {
+    margin-left: 2%;
+>>>>>>> 79c73bfafe3ea3a56f470144e5cec7ab3865ed45
 }

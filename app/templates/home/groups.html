@@ -5,14 +5,20 @@
     <div class="panel panel-default panel-custom">
         <form name="RoomForm" ng-submit="createRoom(information)" novalidate>
 
+<<<<<<< HEAD
 <!--<<<<<<< HEAD -->
+=======
+>>>>>>> 79c73bfafe3ea3a56f470144e5cec7ab3865ed45
             <h2>New group : </h2>
             <label for="roomName">Group name :</label>
             <input type="text" id="roomName"
                    ng-model="information.roomName">
 
-            <button type="submit">Let's chat!</button>
+            <span style="color:red" ng-show="RoomForm.$submitted && RoomForm.roomName.$invalid">
+                Group name is required.
+            </span>
 
+<<<<<<< HEAD
         </form>
     </div>
 <!--=======-->
@@ -24,20 +30,28 @@
         <span style="color:red" ng-show="RoomForm.$submitted && RoomForm.roomName.$invalid">
          Group name is required.
         </span>
+=======
+            <h3> Add contacts in this new group : </h3>
+            <div ng-repeat="contact in user.contacts">
+                <input type="checkbox" ng-model="information.selected[contact._id._id]" > {{contact._id.userName}}
+            </div>
+>>>>>>> 79c73bfafe3ea3a56f470144e5cec7ab3865ed45
 
-        <div ng-repeat="contact in user.contacts">
-            <!--<input type="checkbox" checklist-model="information.selected.contact._id._id" checklist-value="contact._id._id"> {{contact._id.userName}}-->
-            <input type="checkbox" ng-model="information.selected[contact._id._id]" > {{contact._id.userName}}
-        </div>
+            <br/>
 
-        <button type="submit">Let's chat!</button>
+            <button type="submit">Let's chat!</button>
 
-        <span style="color:red">
+            <span style="color:red">
          {{errorSaveMessage}}
         </span>
+<<<<<<< HEAD
 
     </form>
 <!-- >>>>>>> 3ec3d86b3145f8a8428b4ea302271468f27930ce-->
+=======
+        </form>
+    </div>
+>>>>>>> 79c73bfafe3ea3a56f470144e5cec7ab3865ed45
 
     <div class="panel panel-default panel-custom">
         <h1>Your groups :</h1>
