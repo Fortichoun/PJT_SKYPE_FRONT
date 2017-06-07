@@ -125,14 +125,12 @@ select::-ms-expand {
     display: none;
 }
 
-.participants select option {
-    background-color: #C9A0DC;
-    /*color: #C9A0DC;*/
-}
+/*.participants select option {*/
+    /*background-color: #C9A0DC;*/
+/*}*/
 
 .participants select {
     background-color: #C9A0DC;
-    /*color: #C9A0DC;*/
 }
 
 .btn-home {
@@ -143,4 +141,16 @@ select::-ms-expand {
     background-color: #884DA7 !important;
     margin-right: 2%;
     margin-top: -8%
+}
+
+.usersInRoom {
+    cursor:pointer;
+}
+
+.contacts {
+    cursor:pointer;
+}
+
+.userProfile {
+    margin-left: 2%;
 }

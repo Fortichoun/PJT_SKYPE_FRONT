@@ -4,6 +4,7 @@ angular.module('myApp')
     .controller('ChatController',
       ($scope, socket, $http, $rootScope, $state, $stateParams, HOST_CONFIG) => {
         $scope.room = $stateParams.room;
+        let tokenEnterRoom = 0;
           // After the DOM elements has been loaded, do the API call
         angular.element(() => {
               // Retrieve from the DB every messages in the conversation you've been through
@@ -14,6 +15,20 @@ angular.module('myApp')
             $http.get(`http://${HOST_CONFIG.url}:3000/api/rooms/usersInRoom?room=${$scope.room._id}`)
                 .then((response) => {
                     $scope.room = response.data;
+                    if (window.location.hash.substring(2,10) === 'channels') {
+                        $scope.room.users.find((user) => {
+                            if (user._id._id !== $scope.user._id && tokenEnterRoom === 0) {
+                                tokenEnterRoom++;
+                                $http.post(`http://${HOST_CONFIG.url}:3000/api/rooms/addContact`, {
+                                    roomId: $scope.room._id,
+                                    contactId: $scope.user._id
+                                })
+                                    .then((response) => {
+                                        $scope.room = response.data;
+                                    });
+                            }
+                        });
+                    }
                 });
             $http.get(`http://${HOST_CONFIG.url}:3000/api/contacts/allContacts?user=${$scope.user._id}`)
                 .then((user) => {
@@ -29,6 +44,7 @@ angular.module('myApp')
                 //         });
                 //     };
                 // })
+            // console.log(window.location.hash.substring(2,10));
         });
           // This function emit a new message using SocketIO
         $scope.sendMessage = (message) => {
@@ -42,7 +58,7 @@ angular.module('myApp')
         // At the reception of a new message
         socket.on('messageCreated', (message) => {
           $scope.messages.push(message);
-          $scope.message = '';
+          if (message.user._id === $scope.user._id) $scope.message = '';
         });
           $scope.optionSelected = (selectOption) => {
               if (selectOption.selectOption === '1') {
@@ -88,7 +104,7 @@ angular.module('myApp')
               })
                   .then((response) => {
                       $scope.room = response.data;
-                      $state.go('home.groups');
+                      $state.go(`home.${$scope.room.typeOfRoom}`);
                   });
           }
       })

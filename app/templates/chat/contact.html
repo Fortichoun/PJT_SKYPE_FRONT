@@ -23,7 +23,7 @@
 
 <div ng-controller="ChatController">
 
-    <h1 class="text-center">{{room.name}}</h1>
+    <h1 class="text-center">Private conversation between {{room.users[0]._id.userName}} and {{room.users[1]._id.userName}}</h1>
 
     <div class="row">
         <div class="col-md-8">
@@ -34,10 +34,17 @@
             </div>
         </div>
         <div class="col-md-4 background-glycine">
-            <div class="height-50">
+            <div class="height-50 participants">
                 <h2>Participants :</h2>
-                <div ng-repeat="userInRoom in room.users">
-                    <p> - {{userInRoom._id.userName}}</p>
+                <button class="btn-leave pull-right" ng-click="leaveRoom()">Leave Room <span class="glyphicon glyphicon-share-alt"></span></button>
+                <div>{{user.userName}}</div>
+                <div ng-repeat="contact in room.users">
+                    <select class="usersInRoom" ng-if="contact._id._id !== user._id" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
+                        <option value="" ng-selected="selected" disabled hidden>{{contact._id.userName}}</option>
+                        <!--<option value="1">Chat with {{contact._id.userName}}</option>-->
+                        <option value="2">See profile</option>
+                        <!--<option value="3">Remove him from contacts list</option>-->
+                    </select>
                 </div>
             </div>
         </div>

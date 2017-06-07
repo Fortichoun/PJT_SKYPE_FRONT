@@ -1,7 +1,7 @@
 angular.module('myApp')
 // This controller handle the user login/registration
     .controller('VideoCallController',
-        ($scope, $rootScope, socket, $http, $location, $stateParams, $compile, HOST_CONFIG) => {
+        ($scope, $route, $rootScope, socket, $http, $location, $stateParams, $compile, HOST_CONFIG) => {
           $scope.room = $stateParams.room;
           let userInRoomToken = 0;
           let token = 0;
@@ -21,6 +21,7 @@ angular.module('myApp')
             detectSpeakingEvents: true,
             autoAdjustMic: false,
             url: `http://${HOST_CONFIG.url}:8888/`,
+            socketio: { forceNew: true },
           });
 
             webrtc.on('channelMessage', function(peer, label, data) {
@@ -90,7 +91,7 @@ angular.module('myApp')
                 container.removeChild(document.getElementById('audioRoom'));
                 webrtc.sendDirectlyToAll('requestChat', 'message', {userName: $scope.user.userName, media: 'video'});
                 } else {
-                    $scope.errorMessage = "No one to call in your room !";
+                    $scope.errorMessage = "No one is present in your room right now!";
                 }
             };
 
@@ -101,7 +102,7 @@ angular.module('myApp')
                 container.removeChild(document.getElementById('audioRoom'));
                 webrtc.sendDirectlyToAll('requestChat', 'message', {userName: $scope.user.userName, media: 'audio'});
                 } else {
-                    $scope.errorMessage = "No one to call in your room !";
+                    $scope.errorMessage = "No one is present in your room right now!";
                 }
             };
 
@@ -123,6 +124,9 @@ angular.module('myApp')
                 //                              <div id="localVolume" class="volume_bar"></div>`;
 
                 // webrtc.sendDirectlyToAll('endCall', 'endCall', {userName: $scope.user.userName});
+                // webrtc.disconnect();
+                // $route.reload();
+
                 webrtc.stopLocalVideo();
                 webrtc.leaveRoom();
                 room = $scope.room._id;
@@ -136,6 +140,8 @@ angular.module('myApp')
           });
 
             webrtc.on('connectionReady', function () {
+                console.log('joined room');
+                console.log(`${room}home`);
                 room = $scope.room._id;
                 if (room) webrtc.joinRoom(`${room}home`);
             });
@@ -230,6 +236,8 @@ angular.module('myApp')
             // a peer was removed
           webrtc.on('videoRemoved', (video, peer) => {
             if (webrtc.getPeers().length === 0) {
+                // webrtc.disconnect();
+                // $route.reload();
                 webrtc.stopLocalVideo();
                 webrtc.leaveRoom();
                 room = $scope.room._id;
@@ -270,7 +278,7 @@ angular.module('myApp')
             console.log('local fail', connstate);
             if (connstate) {
               connstate.innerText = 'Connection failed.';
-              fileinput.disabled = 'disabled';
+              // fileinput.disabled = 'disabled';
             }
           });
 
@@ -296,9 +304,20 @@ angular.module('myApp')
             setRoom(room);
           }
             $rootScope.$on('$locationChangeStart', function(event, toUrl, fromUrl) {
-                if (token === 0 && toUrl.toString() === "http://localhost:8000/home/groups" && fromUrl.toString() === `http://localhost:8000/groups/${room}` ) {
+                // console.log('hey');
+                // console.log(toUrl);
+                // console.log(fromUrl);
+                // console.log(event);
+                console.log(window.location.hash.substring(2));
+                console.log($scope.room.typeOfRoom);
+                console.log(`${$scope.room.typeOfRoom}/${$scope.room._id}`);
+                if (token ===  0 && window.location.hash.substring(2) === `${$scope.room.typeOfRoom}/${$scope.room._id}`) {
+                // if (token === 0 && toUrl.toString() === "http://localhost:8000/home/groups" && fromUrl.toString() === `http://localhost:8000/groups/${room}` ) {
+                    console.log('disconnect');
                     token++;
+                    webrtc.leaveRoom();
                     webrtc.disconnect();
+                    $route.reload();
                 }
             });
         });

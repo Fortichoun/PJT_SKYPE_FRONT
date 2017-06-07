@@ -37,8 +37,9 @@
             <div class="height-50 participants">
                 <h2>Participants :</h2>
                 <button class="btn-leave pull-right" ng-click="leaveRoom()">Leave Room <span class="glyphicon glyphicon-share-alt"></span></button>
+                <div>{{user.userName}}</div>
                 <div ng-repeat="contact in room.users">
-                    <select ng-if="contact._id._id !== user._id" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
+                    <select class="usersInRoom" ng-if="contact._id._id !== user._id" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
                         <option value="" ng-selected="selected" disabled hidden>{{contact._id.userName}}</option>
                         <!--<option value="1">Chat with {{contact._id.userName}}</option>-->
                         <option value="2">See profile</option>
@@ -50,9 +51,6 @@
                 <div ng-repeat="contact in user.contacts">
                     <button ng-click="addContactToRoom(contact._id)"> Add {{contact._id.userName}}</button>
                 </div>
-                <!--<div ng-repeat="userInRoom in room.users">-->
-                <!--<p> - {{userInRoom._id.userName}}</p>-->
-                <!--</div>-->
             </div>
         </div>
     </div>

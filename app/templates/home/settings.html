@@ -1,4 +1,5 @@
 <body>
+<divclass="userProfile">
     <form name="modificationForm" ng-submit="modify(modificationForm)" novalidate>
 
         <label class="test">Username :</label>
@@ -31,6 +32,9 @@
         <textarea id="bio" name="bio" ng-maxlength="100" >{{user.bio}}
         </textarea>
 
+        <br/>
+        <br/>
+
         <button type="submit">Save modifications</button>
 
         <span style="color:red">
@@ -38,4 +42,9 @@
         </span>
         <span ng-if="modificationMessage">{{modificationMessage}}</span>
     </form>
+    <br/>
+    <div><strong>Email :</strong>   {{user.email}}</div>
+    <br/>
+    <div><strong>Birth date :</strong>   {{user.birthDate ?  (user.birthDate | date : "MM/dd/yyyy") : "Not informed yet"}}</div>
+</div>
 </body>

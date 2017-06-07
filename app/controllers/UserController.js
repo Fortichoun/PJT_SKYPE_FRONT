@@ -76,9 +76,11 @@ angular.module('myApp')
             $scope.credentials = {};
             $scope.information = {};
           };
-
-        $scope.callModal = (userId) => {
-            console.log('helloModal');
-            console.log(userId);
-        };
+        // $scope.forgo tPassword = () => {
+        //     $http.post(`http://${HOST_CONFIG.url}:3000/api/settings/forgotten`, {
+        //         // userId: $scope.user._id,
+        //     }).then((response) => {
+        //         console.log($scope.response);
+        //     });
+        // }
       });

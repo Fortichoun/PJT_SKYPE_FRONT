@@ -25,7 +25,7 @@
         <h1>Your contacts :</h1>
 
         <div ng-repeat="contact in user.contacts">
-            <select id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
+            <select class="contacts" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
                 <option value="" ng-selected="selected" disabled hidden>{{contact._id.userName}}</option>
                 <option value="1">Chat with {{contact._id.userName}}</option>
                 <option value="2">See profile</option>
