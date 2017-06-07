@@ -108,3 +108,8 @@ margin: 1em;
 .scrollable{
     overflow-y: scroll;
 }
+
+.img-center {
+    margin:10px auto;
+
+}
