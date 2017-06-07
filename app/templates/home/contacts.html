@@ -17,7 +17,7 @@
         <div ng-if="userFound" ng-model="test">
             We've found : {{userFound.userName}}
         </div>
-        <button ng-if="notYouOrFriend"  ng-click="addContact()">Add to my contact list</button>
+        <button ng-if="notYouOrFriend"  ng-click="addContact()">Add to my contact list </button>
         <span ng-if="message">{{message}}</span>
     </div>
 
@@ -25,9 +25,12 @@
         <h1>Your contacts :</h1>
 
         <div ng-repeat="contact in user.contacts">
-            <button class="margin-1" ui-sref="contact({roomId: room._id, room: room})">
-                Contact {{contact.userName}}
-            </button>
+            <select class="contacts" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
+                <option value="" ng-selected="selected" disabled hidden>{{contact._id.userName}}</option>
+                <option value="1">Chat with {{contact._id.userName}}</option>
+                <option value="2">See profile</option>
+                <option value="3">Remove him from contacts list</option>
+            </select>
         </div>
     </div>
 
@@ -35,22 +38,73 @@
         <h2>Invitations received :</h2>
 
         <div ng-repeat="invitation in user.friendRequestReceived">
-            <div> Invitation {{invitation._id}} </div>
+            <div> Invitation from {{invitation._id.userName}}
+                <button ng-click="acceptContact(invitation._id)">Accept</button>
+                <button ng-click="refuseContact(invitation._id)">Refuse</button>
+            </div>
         </div>
 
-    <div ng-repeat="invitation in user.friendRequestReceived">
-        <div> Invitation from {{invitation._id.userName}}
-            <button ng-click="acceptContact(invitation._id)">Accept</button>
-            <button ng-click="refuseContact(invitation._id)">Refuse</button>
+        <h2>Invitations sent :</h2>
+
+        <div ng-repeat="invitation in user.friendRequestSent">
+            <div> Invitation to {{invitation._id.userName}} </div>
         </div>
+
     </div>
 
-    <h2>Invitations sent :</h2>
+    <!-- Modal -->
+    <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog"
+         aria-labelledby = "myModalLabel" aria-hidden = "true">
 
-    <div ng-repeat="invitation in user.friendRequestSent">
-        <div> Invitation to {{invitation._id.userName}} </div>
-    </div>
+        <div class = "modal-dialog">
+            <div class = "modal-content">
+
+
+                <div class = "modal-header">
+                    <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                        &times;
+                    </button>
+
+                    <h4 class = "modal-title" id = "myModalLabel">
+                        {{contactProfile.userName}}'s Profile
+                    </h4>
+                </div>
+
+                <div class = "modal-body">
+
+                    <!--<label class="control-label col-sm-4">Email :</label>-->
+                    <!--<div class="col-sm-4">-->
+                    <div>Email : {{contactProfile.email}}</div>
+                    <!--</div>-->
+                    <br/>
+
+                    <!--<label class="control-label col-sm-4">Date of birth:</label>-->
+                    <!--<div class="col-sm-4">-->
+                    <div>Birth date : {{contactProfile.birthDate ?  (contactProfile.birthDate | date : "MM/dd/yyyy") : "Not informed yet"}}</div>
+                    <!--</div>-->
+                    <br/>
+
+                    <!--<label for="RegisterPicture">Profile Picture :</label>-->
+                    <!--<input type="file" nv-file-select onclick="uploader()"/>-->
+                    <!--<input type="file" nv-file-select="" uploader="uploader"/>-->
+                    <!--<input type="file" id="RegisterPicture"-->
+                    <!--ng-model="information.picture">-->
+
+                    <!--<label class="control-label col-sm-4">Bio :</label>-->
+                    <!--<div class="col-sm-6">-->
+                    <div>Bio : {{contactProfile.bio ? contactProfile.bio : "Not informed yet"}}</div>
+                    <!--</div>-->
+
+                </div>
+                <!--<div class = "modal-footer">-->
+                <!--Hello-->
+                <!--</div>-->
+            </div>
+        </div>
+
+
 
     </div>
 </div>
+
 </body>

@@ -36,6 +36,8 @@
 
                             <button class="btn btn-success" type="submit">Login</button>
 
+                            <!--<br/>-->
+                            <!--<a ng-click="forgotPassword()">Forgotten password ?</a>-->
                             <br/>
                             <span style="color:red">
                                 {{errorMessage}}
@@ -95,9 +97,9 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Date of birth:</label>
                             <div class="col-sm-4">
-                                <input class="form-control" type="text" required placeholder="MM/DD/YYYY" name="dateOfBirth"
-                                       ng-model="information.dateOfBirth" ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19\d{2}|20[0-1][0-7])$/">
-                                <span style="color:red" ng-show="registerForm.$submitted && registerForm.dateOfBirth.$invalid ">
+                                <input class="form-control" type="text" required placeholder="MM/DD/YYYY" name="birthDate"
+                                       ng-model="information.birthDate" ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19\d{2}|20[0-1][0-7])$/">
+                                <span style="color:red" ng-show="registerForm.$submitted && registerForm.birthDate.$invalid ">
                                  The date of birth is invalid.
                                 </span>
                             </div>

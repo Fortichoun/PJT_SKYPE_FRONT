@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to Qwirk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+                <div class="col-md-6">
+*                        <div class="form-group">
+                            <label class="test control-label col-sm-4">Username :</label>
+                            <div class="col-sm-4">
+                                <div>{{contact.userName}}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Email :</label>
+                            <div class="col-sm-4">
+                                <div>{{contact.email}}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Date of birth:</label>
+                            <div class="col-sm-4">
+                                <div>{{contact.birthDate}}</div>
+                            </div>
+                        </div>
+
+
+                        <!--<label for="RegisterPicture">Profile Picture :</label>-->
+                        <!--<input type="file" nv-file-select onclick="uploader()"/>-->
+                        <!--<input type="file" nv-file-select="" uploader="uploader"/>-->
+                        <!--<input type="file" id="RegisterPicture"-->
+                        <!--ng-model="information.picture">-->
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Bio :</label>
+                            <div class="col-sm-6">
+                                <div>{{contact.bio}}</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success pull-right" type="submit">Register</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

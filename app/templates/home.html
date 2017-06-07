@@ -14,6 +14,11 @@
             <div class="panel-body">
                 <h1 class="text-center">Qwirk</h1>
 
+                <div class="status pull-right margin-1">
+                    <p>You are connected with : {{user.userName}}</p>
+                    <a ng-click='disconnect()' ui-sref="login">Log out</a>
+                </div>
+
                 <div class="btn-group btn-group-justified">
                     <a class="btn btn-primary" ui-sref="home.groups">Groups</a>
                     <a class="btn btn-primary" ui-sref="home.channels">Channels</a>

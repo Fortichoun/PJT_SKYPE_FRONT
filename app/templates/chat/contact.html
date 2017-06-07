@@ -1,3 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to Qwirk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
 
+<div class="panel panel-default">
+    <div class="panel-body">
+        <button class="btn-home margin-2" ui-sref="home.contacts"><span class="glyphicon glyphicon-home"></span></button>
+        <!--<h1 class="title">Qwirk</h1>-->
+        <div class="status pull-right margin-1">
+            <p>You are connected with : {{user.userName}}</p>
+            <a ng-click='disconnect()' ui-sref="login">Log out</a>
+        </div>
+    </div>
+</div>
+
+<div ng-controller="ChatController">
+
+    <h1 class="text-center">Private conversation between {{room.users[0]._id.userName}} and {{room.users[1]._id.userName}}</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default panel-custom height-50" style="overflow-y: scroll">
+                <div ng-repeat="message in messages">
+                    <p class="message">{{message.user.userName}} : <span ng-bind-html="message.content | linky | enclosing | emojify"></span> <span class="pull-right">{{message.createdAt | date : "MM/dd/yy | HH:mm"}}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 background-glycine">
+            <div class="height-50 participants">
+                <h2>Participants :</h2>
+                <button class="btn-leave pull-right" ng-click="leaveRoom()">Leave Room <span class="glyphicon glyphicon-share-alt"></span></button>
+                <div>{{user.userName}}</div>
+                <div ng-repeat="contact in room.users">
+                    <select class="usersInRoom" ng-if="contact._id._id !== user._id" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
+                        <option value="" ng-selected="selected" disabled hidden>{{contact._id.userName}}</option>
+                        <!--<option value="1">Chat with {{contact._id.userName}}</option>-->
+                        <option value="2">See profile</option>
+                        <!--<option value="3">Remove him from contacts list</option>-->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default panel-custom">
+        <label>Message : <input type="text" ng-model="message"/></label>
+        <span emoji-picker="message" placement="right" title="Emoji"></span>
+        <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+
+        <div ng-controller="VideoCallController">
+            <div id="acceptCall">
+                <button id="callRoom" ng-click="callRoom()">Video call users in room</button>
+                <button id="audioRoom" ng-click="audioRoom()">Audio call users in room</button>
+                <div ng-if="errorMessage">{{errorMessage}}</div>
+            </div>
+
+            <div id="videoContainerLocal" class="videoContainerLocal">
+                <audio id="localAudio"></audio>
+                <video id="localVideo" oncontextmenu="return false;"></video>
+                <div id="localVolume" class="volume_bar"></div>
+            </div>
+            <div id="localScreenContainer" class="videoContainer">
+            </div>
+            <div id="remotes"></div>
+        </div>
+    </div>
+</div>
 </body>
+
+<style>
+    .bold {
+        font-weight: bold;
+    }
+    .italic {
+        font-style: italic;
+    }
+    .underline {
+        text-decoration: underline;
+    }
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .videoContainer {
+        position: relative;
+        width: 500px;
+        height: 400px;
+    }
+    .videoContainerLocal {
+        position: relative;
+        width: 200px;
+        height: 150px;
+    }
+    video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .volume_bar {
+        position: absolute;
+        width: 5px;
+        height: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: #12acef;
+    }
+    #localScreenContainer {
+        display: none;
+    }
+</style>
