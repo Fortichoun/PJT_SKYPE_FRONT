@@ -113,11 +113,10 @@ input{
     overflow-y: scroll;
 }
 
-<<<<<<< HEAD
 .img-center {
     margin:10px auto;
+}
 
-=======
 select {
     /*for firefox*/
     -moz-appearance: none;
@@ -145,7 +144,7 @@ select::-ms-expand {
 .btn-leave {
     background-color: #884DA7 !important;
     margin-right: 2%;
-    margin-top: -8%
+    margin-top: -4%
 }
 
 .usersInRoom {
@@ -158,5 +157,8 @@ select::-ms-expand {
 
 .userProfile {
     margin-left: 2%;
->>>>>>> 79c73bfafe3ea3a56f470144e5cec7ab3865ed45
+}
+
+#acceptCall {
+    margin-top: 2%;
 }
