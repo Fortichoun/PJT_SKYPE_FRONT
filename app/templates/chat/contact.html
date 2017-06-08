@@ -4,9 +4,6 @@
     <title>Welcome to Qwirk</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -36,7 +33,6 @@
         <div class="col-md-4 background-glycine">
             <div class="height-50 participants">
                 <h2>Participants :</h2>
-                <button class="btn-leave pull-right" ng-click="leaveRoom()">Leave Room <span class="glyphicon glyphicon-share-alt"></span></button>
                 <div>{{user.userName}}</div>
                 <div ng-repeat="contact in room.users">
                     <select class="usersInRoom" ng-if="contact._id._id !== user._id" id="select{{contact._id._id}}" ng-model="selectOption" ng-change="optionSelected(this)">
@@ -54,7 +50,7 @@
     <div class="panel panel-default panel-custom">
         <label>Message : <input type="text" ng-model="message"/></label>
         <span emoji-picker="message" placement="right" title="Emoji"></span>
-        <button ng-click="sendMessage(message)">SEND MESSAGE</button>
+        <button ng-click="sendMessage(message)">Send Message</button>
 
         <div ng-controller="VideoCallController">
             <div id="acceptCall">

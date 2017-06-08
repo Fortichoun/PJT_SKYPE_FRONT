@@ -1,7 +1,7 @@
 angular.module('myApp')
 // This controller handle the user login/registration
     .controller('VideoCallController',
-        ($scope, $route, $rootScope, socket, $http, $location, $stateParams, $compile, HOST_CONFIG) => {
+        ($scope, $state, $route, $rootScope, socket, $http, $location, $stateParams, $compile, HOST_CONFIG) => {
           $scope.room = $stateParams.room;
           let userInRoomToken = 0;
           let token = 0;
@@ -10,7 +10,7 @@ angular.module('myApp')
           let room = location.search && location.search.split('?')[1];
 
             // create our webrtc connection
-          const webrtc = new SimpleWebRTC({
+          let webrtc = new SimpleWebRTC({
                 // the id/element dom element that will hold "our" video
             localVideoEl: 'localVideo',
                 // the id/element dom element that will hold remote videos
@@ -23,6 +23,8 @@ angular.module('myApp')
             url: `http://${HOST_CONFIG.url}:8888/`,
             socketio: { forceNew: true },
           });
+            webrtc.config.media = { video: true, audio: true };
+            // webrtc.config.receiveMedia = { offerToReceiveAudio: 1, offerToReceiveVideo: 1 };
 
             webrtc.on('channelMessage', function(peer, label, data) {
                 if (label === 'requestChat') {
@@ -44,8 +46,8 @@ angular.module('myApp')
                     container.innerHTML = '<button id="endCall" ng-click="endCall()">End call</button>';
                     $compile(container)($scope);
                     if (data.payload.media === 'audio') {
-                        webrtc.media = { audio: true, video: false };
-                        webrtc.receiveMedia = { offerToReceiveAudio: 1, offerToReceiveVideo: 0 };
+                        webrtc.config.media = { video: false, audio: true };
+                        // webrtc.config.receiveMedia = { offerToReceiveAudio: 1, offerToReceiveVideo: 0 };
                     }
                     webrtc.startLocalVideo();
                 }
@@ -67,9 +69,9 @@ angular.module('myApp')
                 container.innerHTML = '<button id="endCall" ng-click="endCall()">End call</button>';
                 $compile(container)($scope);
                 if (media === 'audio') {
-                    webrtc.media = { audio: true, video: false };
-                    webrtc.receiveMedia = { offerToReceiveAudio: 1, offerToReceiveVideo: 0 };
-                }                console.log(webrtc);
+                    webrtc.config.media = { video: false, audio: true };
+                    // webrtc.config.receiveMedia = { offerToReceiveAudio: 1, offerToReceiveVideo: 0 };
+                }
                 webrtc.sendDirectlyToAll('startVideo', 'startVideo', {userName: $scope.user.userName, media});
                 webrtc.startLocalVideo();
             };
@@ -107,30 +109,10 @@ angular.module('myApp')
             };
 
             $scope.endCall = () => {
-                // const container = document.getElementById('acceptCall');
-                // container.removeChild(document.getElementById('endCall'));
-                // container.innerHTML = `<button id="callRoom" ng-click="callRoom()">Video call users in room</button>
-                //                        <button id="audioRoom" ng-click="audioRoom()">Audio call users in room</button>`;
-                // $compile(container)($scope);
-                //
-                // const remoteVideoAudio = document.getElementById('remotes');
-                // while (remoteVideoAudio.firstChild) remoteVideoAudio.removeChild(remoteVideoAudio.firstChild);
-                //
-                // const localVideoAudio = document.getElementById('videoContainerLocal');
-                // localVideoAudio.removeChild(document.getElementById('localVideo'));
-                // localVideoAudio.removeChild(document.getElementById('localVolume'));
-                //
-                // localVideoAudio.innerHTML = `<video id="localVideo" oncontextmenu="return false;"></video>
-                //                              <div id="localVolume" class="volume_bar"></div>`;
-
-                // webrtc.sendDirectlyToAll('endCall', 'endCall', {userName: $scope.user.userName});
-                // webrtc.disconnect();
-                // $route.reload();
-
                 webrtc.stopLocalVideo();
-                webrtc.leaveRoom();
-                room = $scope.room._id;
-                if (room) webrtc.joinRoom(`${room}home`);
+                // webrtc.leaveRoom();
+                webrtc.disconnect();
+                $state.reload();
             };
 
             // when it's ready, join if we got a room from the URL
@@ -140,8 +122,6 @@ angular.module('myApp')
           });
 
             webrtc.on('connectionReady', function () {
-                console.log('joined room');
-                console.log(`${room}home`);
                 room = $scope.room._id;
                 if (room) webrtc.joinRoom(`${room}home`);
             });
@@ -240,12 +220,14 @@ angular.module('myApp')
                 // $route.reload();
                 webrtc.stopLocalVideo();
                 webrtc.leaveRoom();
+                console.log(window.location);
                 room = $scope.room._id;
                 if (room) webrtc.joinRoom(`${room}home`);
                 const container = document.getElementById('acceptCall');
                 container.removeChild(document.getElementById('endCall'));
                 container.innerHTML = `<button id="callRoom" ng-click="callRoom()">Video call users in room</button>
-                                       <button id="audioRoom" ng-click="audioRoom()">Audio call users in room</button>`;
+                                       <button id="audioRoom" ng-click="audioRoom()">Audio call users in room</button>
+                                       <div ng-if="errorMessage">{{errorMessage}}</div>`;
                 $compile(container)($scope);
 
                 const localVideoAudio = document.getElementById('videoContainerLocal');
@@ -303,21 +285,14 @@ angular.module('myApp')
           if (room) {
             setRoom(room);
           }
+
             $rootScope.$on('$locationChangeStart', function(event, toUrl, fromUrl) {
-                // console.log('hey');
-                // console.log(toUrl);
-                // console.log(fromUrl);
-                // console.log(event);
-                console.log(window.location.hash.substring(2));
-                console.log($scope.room.typeOfRoom);
-                console.log(`${$scope.room.typeOfRoom}/${$scope.room._id}`);
+
                 if (token ===  0 && window.location.hash.substring(2) === `${$scope.room.typeOfRoom}/${$scope.room._id}`) {
-                // if (token === 0 && toUrl.toString() === "http://localhost:8000/home/groups" && fromUrl.toString() === `http://localhost:8000/groups/${room}` ) {
-                    console.log('disconnect');
                     token++;
-                    webrtc.leaveRoom();
+                    webrtc.stopLocalVideo();
+                    // webrtc.leaveRoom();
                     webrtc.disconnect();
-                    $route.reload();
                 }
             });
         });

@@ -140,7 +140,7 @@ select::-ms-expand {
 .btn-leave {
     background-color: #884DA7 !important;
     margin-right: 2%;
-    margin-top: -8%
+    margin-top: -4%
 }
 
 .usersInRoom {
@@ -153,4 +153,8 @@ select::-ms-expand {
 
 .userProfile {
     margin-left: 2%;
+}
+
+#acceptCall {
+    margin-top: 2%;
 }
