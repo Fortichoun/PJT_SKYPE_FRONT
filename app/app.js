@@ -1,8 +1,8 @@
 angular
     .module('myApp', ['ngRoute', 'validation.match', 'ui.router', 'angularFileUpload', 'vkEmojiPicker'])
     .constant('HOST_CONFIG', {
-    // url: 'localhost',
-    url: '79.137.37.194',
+     url: 'localhost',
+    //url: '79.137.37.194',
     })
     .config(($locationProvider, $stateProvider) => {
     // UI-Router, defines the routes
