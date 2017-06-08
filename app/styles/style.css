@@ -113,6 +113,10 @@ input{
     overflow-y: scroll;
 }
 
+.img-center {
+    margin:10px auto;
+}
+
 select {
     /*for firefox*/
     -moz-appearance: none;
