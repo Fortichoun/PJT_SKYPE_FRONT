@@ -20,7 +20,7 @@
     "http-server": "^0.9.0"
   },
   "scripts": {
-    "start": "http-server -a localhost -p 8000 -c -1 ./app",
+    "start": "electron index.js",
     "postinstall": "bower install",
     "update-deps": "npm update",
     "postupdate-deps": "bower update",

@@ -162,3 +162,9 @@ select::-ms-expand {
 #acceptCall {
     margin-top: 2%;
 }
+
+.testPicture {
+    width: 100px;
+    height: 100px;
+    background-image: url("./img/qwirk_logo.png");
+}
